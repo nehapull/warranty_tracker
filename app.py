@@ -65,7 +65,7 @@ def create_app(test_config=None):
 
     @app.route('/login-results', methods=['GET'])
     def login_results():
-        return render_template("login.html")
+        return render_template('login.html')
 
     def store_user_session(user_token):
         # Make a request to the userprofile
