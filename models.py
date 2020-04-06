@@ -7,7 +7,7 @@ import json
 
 database_name = "warranty"
 #database_path = "postgres://{}/{}".format('localhost:5432', database_name)
-database_path = "postgres://gagjafubuwsmdy:4529f04d55483d60bf8ae9d073837b766c0a440eef698b188aa5e2149b25001d@ec2-18-215-99-63.compute-1.amazonaws.com:5432/daqivn8pd7546f"
+database_path = "postgres://cmbkmauwpoyubc:ab350bd16641cd694ad7a0599ac3e00b4480ea3c881ca1c539d3c4417571665c@ec2-34-197-212-240.compute-1.amazonaws.com:5432/d47sd0jradd25t"
 
 db = SQLAlchemy()
 bcrypt = Bcrypt()

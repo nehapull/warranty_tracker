@@ -26,7 +26,26 @@
 	      }
 
 	  </script>
+	  
+	  <div>
+           <h2>Post a product</h2>
+	   <form action="#" method="post" name="post_product" id="form_id" class="form_class" >	  
+		<label>Product Name :</label>
+		  <input type="text" name="name" id="name" placeholder="ex: MacBook" />
+	        <label>Date Purchased (in YYYY/MM/DD) :</label>
+	          <input type="text" name="date-purchased" id="buy-date" placeholder="ex: 2017-01-12" />
+		<label>Warranty End Date (in YYYY/MM/DD) :</label>
+		  <input type="text" name="warranty-date", id="end-date", placeholder="ex: 2025-01-12" />
 
+		<input type="button" name="submit_form" id="btn_id" value="Submit" onclick="submit_product()"/>
+	    </form>
+	   <div>
+	  
+	   <div>
+	     <h2>Get current products</h2>
+	   </div>
+	
+	  
 	  <a href="/logout">Logout</a>
    </body>
 </html>
