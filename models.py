@@ -6,7 +6,8 @@ from flask_bcrypt import Bcrypt
 import json
 
 database_name = "warranty"
-database_path = "postgres://{}/{}".format('localhost:5432', database_name)
+#database_path = "postgres://{}/{}".format('localhost:5432', database_name)
+database_path = "postgres://gagjafubuwsmdy:4529f04d55483d60bf8ae9d073837b766c0a440eef698b188aa5e2149b25001d@ec2-18-215-99-63.compute-1.amazonaws.com:5432/daqivn8pd7546f"
 
 db = SQLAlchemy()
 bcrypt = Bcrypt()
