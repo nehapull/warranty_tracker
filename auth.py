@@ -6,7 +6,6 @@ from werkzeug.exceptions import HTTPException
 
 from dotenv import load_dotenv, find_dotenv
 from flask import Flask, jsonify, redirect, render_template, url_for, request, _request_ctx_stack, abort
-from authlib.integrations.flask_client import OAuth
 from six.moves.urllib.parse import urlencode
 from jose import jwt
 from urllib.request import urlopen
