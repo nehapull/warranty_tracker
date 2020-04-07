@@ -1,0 +1,410 @@
+{
+	"info": {
+		"_postman_id": "bc824359-4f1b-44c1-b8e4-76d8c65fded5",
+		"name": "warranty-tracker-test-endpoints",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
+	},
+	"item": [
+		{
+			"name": "Seller",
+			"item": [
+				{
+					"name": "/items",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"id": "5050a5b9-2e15-474e-9981-0e61ec8d2ff1",
+								"exec": [
+									"pm.test(\"Status code is 200\", function () {",
+									"    pm.response.to.have.status(200);",
+									"});"
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "eyJhbGciOiJSUzI1NiIsInR5cCI6IkpXVCIsImtpZCI6Ik9UTXlPRFUwUkRjeE9EWTBSVFZCTWpOQlJFVXdRVUUxUWtNMk9FUXdSVEV5TWtVeU1EWXhOZyJ9.eyJpc3MiOiJodHRwczovL2Rldi1qeXF1bTE3ci5hdXRoMC5jb20vIiwic3ViIjoiYXV0aDB8NWU4YmJhZWNhMzY2NzgwYzMyOThmMjE1IiwiYXVkIjpbIndhcnJhbnR5IiwiaHR0cHM6Ly9kZXYtanlxdW0xN3IuYXV0aDAuY29tL3VzZXJpbmZvIl0sImlhdCI6MTU4NjIyNjU3MiwiZXhwIjoxNTg2MzEyOTcyLCJhenAiOiJqd081YXRzZHowam4zYktEcDdJcDRqMjJSaFBHN3c5cSIsInNjb3BlIjoib3BlbmlkIHByb2ZpbGUgZW1haWwiLCJwZXJtaXNzaW9ucyI6WyJkZWxldGU6aXRlbSIsImdldDppdGVtcyIsInBhdGNoOml0ZW0iLCJwb3N0Oml0ZW0iXX0.TJ2gsabfPxOTvCQMfaxZeH1sHTkIVfuxhGsNUDyZUqPq_tru6OmjCzDiwl0ZBzVRkY6Zewu8tqyuix4tLNvyuX_wYYVmV4xxD5hzH7OKYGd1PXDJxsaPCVIMeBvas3SXaYhrfGaIP_GAreOxcB9pKf8aanl_4KN_FjA9kPi9CAEW-vwmwVDDcVhjXLzfUQEt6m4fQ5JK0FD4QxLpsl-06YnYESlGT_UbYqESq46Muraj4rFJi6iQ2FbQYkuYvt7yx3K7LIiVFZpRAgdcbkC5mqYTDJDogQkUUHeXa0K3UktkLhua6Dqh9DXcWOMLTlVZrdxd822KOAtuFfdVYE9cAA",
+									"type": "string"
+								}
+							]
+						},
+						"method": "POST",
+						"header": [
+							{
+								"key": "Content-Type",
+								"name": "Content-Type",
+								"value": "application/json",
+								"type": "text"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n\t\"name\": \"Printer\",\n\t\"warranty_period\": 3,\n\t\"item_description\": \"Brand new and good durability\",\n\t\"image_link\": \"getgoodprinter.com\"\n\t\n}"
+						},
+						"url": {
+							"raw": "http://127.0.0.1:5000/items",
+							"protocol": "http",
+							"host": [
+								"127",
+								"0",
+								"0",
+								"1"
+							],
+							"port": "5000",
+							"path": [
+								"items"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "/items",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"id": "41bd0d96-ef96-43c5-b263-94cf2135002b",
+								"exec": [
+									"pm.test(\"Status code is 200\", function () {",
+									"    pm.response.to.have.status(200);",
+									"});"
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "eyJhbGciOiJSUzI1NiIsInR5cCI6IkpXVCIsImtpZCI6Ik9UTXlPRFUwUkRjeE9EWTBSVFZCTWpOQlJFVXdRVUUxUWtNMk9FUXdSVEV5TWtVeU1EWXhOZyJ9.eyJpc3MiOiJodHRwczovL2Rldi1qeXF1bTE3ci5hdXRoMC5jb20vIiwic3ViIjoiYXV0aDB8NWU4YmJhZWNhMzY2NzgwYzMyOThmMjE1IiwiYXVkIjpbIndhcnJhbnR5IiwiaHR0cHM6Ly9kZXYtanlxdW0xN3IuYXV0aDAuY29tL3VzZXJpbmZvIl0sImlhdCI6MTU4NjIyNjU3MiwiZXhwIjoxNTg2MzEyOTcyLCJhenAiOiJqd081YXRzZHowam4zYktEcDdJcDRqMjJSaFBHN3c5cSIsInNjb3BlIjoib3BlbmlkIHByb2ZpbGUgZW1haWwiLCJwZXJtaXNzaW9ucyI6WyJkZWxldGU6aXRlbSIsImdldDppdGVtcyIsInBhdGNoOml0ZW0iLCJwb3N0Oml0ZW0iXX0.TJ2gsabfPxOTvCQMfaxZeH1sHTkIVfuxhGsNUDyZUqPq_tru6OmjCzDiwl0ZBzVRkY6Zewu8tqyuix4tLNvyuX_wYYVmV4xxD5hzH7OKYGd1PXDJxsaPCVIMeBvas3SXaYhrfGaIP_GAreOxcB9pKf8aanl_4KN_FjA9kPi9CAEW-vwmwVDDcVhjXLzfUQEt6m4fQ5JK0FD4QxLpsl-06YnYESlGT_UbYqESq46Muraj4rFJi6iQ2FbQYkuYvt7yx3K7LIiVFZpRAgdcbkC5mqYTDJDogQkUUHeXa0K3UktkLhua6Dqh9DXcWOMLTlVZrdxd822KOAtuFfdVYE9cAA",
+									"type": "string"
+								}
+							]
+						},
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "http://127.0.0.1:5000/items",
+							"protocol": "http",
+							"host": [
+								"127",
+								"0",
+								"0",
+								"1"
+							],
+							"port": "5000",
+							"path": [
+								"items"
+							]
+						},
+						"description": "Get items that seller has created"
+					},
+					"response": []
+				},
+				{
+					"name": "/items/1",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"id": "0aea66ad-0a6e-4533-b192-a8b0af746c78",
+								"exec": [
+									"pm.test(\"Status code is 200\", function () {",
+									"    pm.response.to.have.status(200);",
+									"});"
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "eyJhbGciOiJSUzI1NiIsInR5cCI6IkpXVCIsImtpZCI6Ik9UTXlPRFUwUkRjeE9EWTBSVFZCTWpOQlJFVXdRVUUxUWtNMk9FUXdSVEV5TWtVeU1EWXhOZyJ9.eyJpc3MiOiJodHRwczovL2Rldi1qeXF1bTE3ci5hdXRoMC5jb20vIiwic3ViIjoiYXV0aDB8NWU4YmJhZWNhMzY2NzgwYzMyOThmMjE1IiwiYXVkIjpbIndhcnJhbnR5IiwiaHR0cHM6Ly9kZXYtanlxdW0xN3IuYXV0aDAuY29tL3VzZXJpbmZvIl0sImlhdCI6MTU4NjIyNjU3MiwiZXhwIjoxNTg2MzEyOTcyLCJhenAiOiJqd081YXRzZHowam4zYktEcDdJcDRqMjJSaFBHN3c5cSIsInNjb3BlIjoib3BlbmlkIHByb2ZpbGUgZW1haWwiLCJwZXJtaXNzaW9ucyI6WyJkZWxldGU6aXRlbSIsImdldDppdGVtcyIsInBhdGNoOml0ZW0iLCJwb3N0Oml0ZW0iXX0.TJ2gsabfPxOTvCQMfaxZeH1sHTkIVfuxhGsNUDyZUqPq_tru6OmjCzDiwl0ZBzVRkY6Zewu8tqyuix4tLNvyuX_wYYVmV4xxD5hzH7OKYGd1PXDJxsaPCVIMeBvas3SXaYhrfGaIP_GAreOxcB9pKf8aanl_4KN_FjA9kPi9CAEW-vwmwVDDcVhjXLzfUQEt6m4fQ5JK0FD4QxLpsl-06YnYESlGT_UbYqESq46Muraj4rFJi6iQ2FbQYkuYvt7yx3K7LIiVFZpRAgdcbkC5mqYTDJDogQkUUHeXa0K3UktkLhua6Dqh9DXcWOMLTlVZrdxd822KOAtuFfdVYE9cAA",
+									"type": "string"
+								}
+							]
+						},
+						"method": "DELETE",
+						"header": [],
+						"url": {
+							"raw": "http://127.0.0.1:5000/items/3",
+							"protocol": "http",
+							"host": [
+								"127",
+								"0",
+								"0",
+								"1"
+							],
+							"port": "5000",
+							"path": [
+								"items",
+								"3"
+							]
+						}
+					},
+					"response": []
+				}
+			],
+			"description": "Seller can get, post, delete items",
+			"auth": {
+				"type": "bearer",
+				"bearer": [
+					{
+						"key": "token",
+						"value": "eyJhbGciOiJSUzI1NiIsInR5cCI6IkpXVCIsImtpZCI6Ik9UTXlPRFUwUkRjeE9EWTBSVFZCTWpOQlJFVXdRVUUxUWtNMk9FUXdSVEV5TWtVeU1EWXhOZyJ9.eyJpc3MiOiJodHRwczovL2Rldi1qeXF1bTE3ci5hdXRoMC5jb20vIiwic3ViIjoiYXV0aDB8NWU4YmJhZWNhMzY2NzgwYzMyOThmMjE1IiwiYXVkIjpbIndhcnJhbnR5IiwiaHR0cHM6Ly9kZXYtanlxdW0xN3IuYXV0aDAuY29tL3VzZXJpbmZvIl0sImlhdCI6MTU4NjIxNTkyNywiZXhwIjoxNTg2MzAyMzI3LCJhenAiOiJqd081YXRzZHowam4zYktEcDdJcDRqMjJSaFBHN3c5cSIsInNjb3BlIjoib3BlbmlkIHByb2ZpbGUgZW1haWwiLCJwZXJtaXNzaW9ucyI6WyJkZWxldGU6aXRlbSIsImRlbGV0ZTpwcm9kdWN0cyIsImdldDppdGVtcyIsImdldDpwcm9kdWN0cyIsInBhdGNoOml0ZW0iLCJwYXRjaDpwcm9kdWN0cyIsInBvc3Q6aXRlbSIsInBvc3Q6cHJvZHVjdHMiXX0.jtQntuzdKOpcfxGdBkG64JvUI5m5xt0LYUro_Av8p8H8xkwoDBsv4iEOXMOnz3Jx1ACyo0izXHWaNalqpucdMAgWl2v3xyUdSnWJ0DFzAXvWE_lQ7UJSAG0bVlKdxiRcLedlv8gdNkB9hzr8bsi9yhsGlWASN4zn1HSds4J963OqK5F1mJ3exlZw1tgdbNsy58zNLjeGl-4CCNj9et8Dnmuv-Z0KgD7dCo1VLG6nKCMF6xu4lZoXl2LCtD623yAhsdCiGxHPrjRG8q7L6MoFq_j4esAJmDXGuYsEuKCNDhoMwAuqOCRAKOXUsusKpUpL580rPc2_35q8tF6fk1iOhg",
+						"type": "string"
+					}
+				]
+			}
+		},
+		{
+			"name": "User",
+			"item": [
+				{
+					"name": "/products",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"id": "abd062bc-6c13-4bac-8fd0-b5b671787142",
+								"exec": [
+									"pm.test(\"Status code is 200\", function () {",
+									"    pm.response.to.have.status(200);",
+									"});"
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "eyJhbGciOiJSUzI1NiIsInR5cCI6IkpXVCIsImtpZCI6Ik9UTXlPRFUwUkRjeE9EWTBSVFZCTWpOQlJFVXdRVUUxUWtNMk9FUXdSVEV5TWtVeU1EWXhOZyJ9.eyJpc3MiOiJodHRwczovL2Rldi1qeXF1bTE3ci5hdXRoMC5jb20vIiwic3ViIjoiYXV0aDB8NWU4YmJhY2VlMDA0N2EwYzIzMTdmMjQ5IiwiYXVkIjpbIndhcnJhbnR5IiwiaHR0cHM6Ly9kZXYtanlxdW0xN3IuYXV0aDAuY29tL3VzZXJpbmZvIl0sImlhdCI6MTU4NjIxOTUyNiwiZXhwIjoxNTg2MzA1OTI2LCJhenAiOiJqd081YXRzZHowam4zYktEcDdJcDRqMjJSaFBHN3c5cSIsInNjb3BlIjoib3BlbmlkIHByb2ZpbGUgZW1haWwiLCJwZXJtaXNzaW9ucyI6WyJkZWxldGU6cHJvZHVjdHMiLCJnZXQ6cHJvZHVjdHMiLCJwYXRjaDpwcm9kdWN0cyIsInBvc3Q6cHJvZHVjdHMiXX0.fjAnbFcW4eObYkdynBmzCZA5Jm4el-VV9eM0k53aGmepr2ojlOvhPBsYsVLQI7utR4uxR55RBl0phTxPGMYT1UXcxExSS8FvxN22BaDQemLASaVlMC-U-pHQ5pLzMRHa5NIvojgfdRSzOw8zw7z8cfkNp7C_s4cMeVyWfJrccbsPxcQi8itQehqexU9S4Pc0zvhLozMgkxZMeOjzvDAkaisXJw0jPwsxkl455no_L-oizX8UzOz146S2i_9beiL6P1w3kN-nCJlA8S50moQ6lKC90RpMt5dgUEckH8uPFSHt18iAmcpjK8MDAMi0wloaDCPSUvALWcWxCRUwkDYXiA",
+									"type": "string"
+								}
+							]
+						},
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "http://127.0.0.1:5000/products",
+							"protocol": "http",
+							"host": [
+								"127",
+								"0",
+								"0",
+								"1"
+							],
+							"port": "5000",
+							"path": [
+								"products"
+							]
+						},
+						"description": "Get items that seller has created"
+					},
+					"response": []
+				},
+				{
+					"name": "/products",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"id": "5050a5b9-2e15-474e-9981-0e61ec8d2ff1",
+								"exec": [
+									"pm.test(\"Status code is 200\", function () {",
+									"    pm.response.to.have.status(200);",
+									"});"
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "eyJhbGciOiJSUzI1NiIsInR5cCI6IkpXVCIsImtpZCI6Ik9UTXlPRFUwUkRjeE9EWTBSVFZCTWpOQlJFVXdRVUUxUWtNMk9FUXdSVEV5TWtVeU1EWXhOZyJ9.eyJpc3MiOiJodHRwczovL2Rldi1qeXF1bTE3ci5hdXRoMC5jb20vIiwic3ViIjoiYXV0aDB8NWU4YmJhY2VlMDA0N2EwYzIzMTdmMjQ5IiwiYXVkIjpbIndhcnJhbnR5IiwiaHR0cHM6Ly9kZXYtanlxdW0xN3IuYXV0aDAuY29tL3VzZXJpbmZvIl0sImlhdCI6MTU4NjIxOTUyNiwiZXhwIjoxNTg2MzA1OTI2LCJhenAiOiJqd081YXRzZHowam4zYktEcDdJcDRqMjJSaFBHN3c5cSIsInNjb3BlIjoib3BlbmlkIHByb2ZpbGUgZW1haWwiLCJwZXJtaXNzaW9ucyI6WyJkZWxldGU6cHJvZHVjdHMiLCJnZXQ6cHJvZHVjdHMiLCJwYXRjaDpwcm9kdWN0cyIsInBvc3Q6cHJvZHVjdHMiXX0.fjAnbFcW4eObYkdynBmzCZA5Jm4el-VV9eM0k53aGmepr2ojlOvhPBsYsVLQI7utR4uxR55RBl0phTxPGMYT1UXcxExSS8FvxN22BaDQemLASaVlMC-U-pHQ5pLzMRHa5NIvojgfdRSzOw8zw7z8cfkNp7C_s4cMeVyWfJrccbsPxcQi8itQehqexU9S4Pc0zvhLozMgkxZMeOjzvDAkaisXJw0jPwsxkl455no_L-oizX8UzOz146S2i_9beiL6P1w3kN-nCJlA8S50moQ6lKC90RpMt5dgUEckH8uPFSHt18iAmcpjK8MDAMi0wloaDCPSUvALWcWxCRUwkDYXiA",
+									"type": "string"
+								}
+							]
+						},
+						"method": "POST",
+						"header": [
+							{
+								"key": "Content-Type",
+								"name": "Content-Type",
+								"type": "text",
+								"value": "application/json"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n\t\"name\": \"Printer\",\n\t\"date_purchased\": \"2016-05-12\",\n\t\"warranty_end_date\": \"2020-05-12\"\n}"
+						},
+						"url": {
+							"raw": "http://127.0.0.1:5000/products",
+							"protocol": "http",
+							"host": [
+								"127",
+								"0",
+								"0",
+								"1"
+							],
+							"port": "5000",
+							"path": [
+								"products"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "/products/1",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"id": "caa2c27b-16cd-42f2-b802-b48d1643deb7",
+								"exec": [
+									"pm.test(\"Status code is 200\", function () {",
+									"    pm.response.to.have.status(200);",
+									"});"
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "eyJhbGciOiJSUzI1NiIsInR5cCI6IkpXVCIsImtpZCI6Ik9UTXlPRFUwUkRjeE9EWTBSVFZCTWpOQlJFVXdRVUUxUWtNMk9FUXdSVEV5TWtVeU1EWXhOZyJ9.eyJpc3MiOiJodHRwczovL2Rldi1qeXF1bTE3ci5hdXRoMC5jb20vIiwic3ViIjoiYXV0aDB8NWU4YmJhY2VlMDA0N2EwYzIzMTdmMjQ5IiwiYXVkIjpbIndhcnJhbnR5IiwiaHR0cHM6Ly9kZXYtanlxdW0xN3IuYXV0aDAuY29tL3VzZXJpbmZvIl0sImlhdCI6MTU4NjIxOTUyNiwiZXhwIjoxNTg2MzA1OTI2LCJhenAiOiJqd081YXRzZHowam4zYktEcDdJcDRqMjJSaFBHN3c5cSIsInNjb3BlIjoib3BlbmlkIHByb2ZpbGUgZW1haWwiLCJwZXJtaXNzaW9ucyI6WyJkZWxldGU6cHJvZHVjdHMiLCJnZXQ6cHJvZHVjdHMiLCJwYXRjaDpwcm9kdWN0cyIsInBvc3Q6cHJvZHVjdHMiXX0.fjAnbFcW4eObYkdynBmzCZA5Jm4el-VV9eM0k53aGmepr2ojlOvhPBsYsVLQI7utR4uxR55RBl0phTxPGMYT1UXcxExSS8FvxN22BaDQemLASaVlMC-U-pHQ5pLzMRHa5NIvojgfdRSzOw8zw7z8cfkNp7C_s4cMeVyWfJrccbsPxcQi8itQehqexU9S4Pc0zvhLozMgkxZMeOjzvDAkaisXJw0jPwsxkl455no_L-oizX8UzOz146S2i_9beiL6P1w3kN-nCJlA8S50moQ6lKC90RpMt5dgUEckH8uPFSHt18iAmcpjK8MDAMi0wloaDCPSUvALWcWxCRUwkDYXiA",
+									"type": "string"
+								}
+							]
+						},
+						"method": "PATCH",
+						"header": [
+							{
+								"key": "Content-Type",
+								"name": "Content-Type",
+								"value": "application/json",
+								"type": "text"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n\t\"name\": \"Canon Printer\"\n}"
+						},
+						"url": {
+							"raw": "http://127.0.0.1:5000/products/3",
+							"protocol": "http",
+							"host": [
+								"127",
+								"0",
+								"0",
+								"1"
+							],
+							"port": "5000",
+							"path": [
+								"products",
+								"3"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "/products/1",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"id": "0aea66ad-0a6e-4533-b192-a8b0af746c78",
+								"exec": [
+									"pm.test(\"Status code is 200\", function () {",
+									"    pm.response.to.have.status(200);",
+									"});"
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "eyJhbGciOiJSUzI1NiIsInR5cCI6IkpXVCIsImtpZCI6Ik9UTXlPRFUwUkRjeE9EWTBSVFZCTWpOQlJFVXdRVUUxUWtNMk9FUXdSVEV5TWtVeU1EWXhOZyJ9.eyJpc3MiOiJodHRwczovL2Rldi1qeXF1bTE3ci5hdXRoMC5jb20vIiwic3ViIjoiYXV0aDB8NWU4YmJhY2VlMDA0N2EwYzIzMTdmMjQ5IiwiYXVkIjpbIndhcnJhbnR5IiwiaHR0cHM6Ly9kZXYtanlxdW0xN3IuYXV0aDAuY29tL3VzZXJpbmZvIl0sImlhdCI6MTU4NjIxOTUyNiwiZXhwIjoxNTg2MzA1OTI2LCJhenAiOiJqd081YXRzZHowam4zYktEcDdJcDRqMjJSaFBHN3c5cSIsInNjb3BlIjoib3BlbmlkIHByb2ZpbGUgZW1haWwiLCJwZXJtaXNzaW9ucyI6WyJkZWxldGU6cHJvZHVjdHMiLCJnZXQ6cHJvZHVjdHMiLCJwYXRjaDpwcm9kdWN0cyIsInBvc3Q6cHJvZHVjdHMiXX0.fjAnbFcW4eObYkdynBmzCZA5Jm4el-VV9eM0k53aGmepr2ojlOvhPBsYsVLQI7utR4uxR55RBl0phTxPGMYT1UXcxExSS8FvxN22BaDQemLASaVlMC-U-pHQ5pLzMRHa5NIvojgfdRSzOw8zw7z8cfkNp7C_s4cMeVyWfJrccbsPxcQi8itQehqexU9S4Pc0zvhLozMgkxZMeOjzvDAkaisXJw0jPwsxkl455no_L-oizX8UzOz146S2i_9beiL6P1w3kN-nCJlA8S50moQ6lKC90RpMt5dgUEckH8uPFSHt18iAmcpjK8MDAMi0wloaDCPSUvALWcWxCRUwkDYXiA",
+									"type": "string"
+								}
+							]
+						},
+						"method": "DELETE",
+						"header": [],
+						"url": {
+							"raw": "http://127.0.0.1:5000/products/3",
+							"protocol": "http",
+							"host": [
+								"127",
+								"0",
+								"0",
+								"1"
+							],
+							"port": "5000",
+							"path": [
+								"products",
+								"3"
+							]
+						}
+					},
+					"response": []
+				}
+			],
+			"auth": {
+				"type": "bearer",
+				"bearer": [
+					{
+						"key": "token",
+						"value": "eyJhbGciOiJSUzI1NiIsInR5cCI6IkpXVCIsImtpZCI6Ik9UTXlPRFUwUkRjeE9EWTBSVFZCTWpOQlJFVXdRVUUxUWtNMk9FUXdSVEV5TWtVeU1EWXhOZyJ9.eyJpc3MiOiJodHRwczovL2Rldi1qeXF1bTE3ci5hdXRoMC5jb20vIiwic3ViIjoiYXV0aDB8NWU4YmJhY2VlMDA0N2EwYzIzMTdmMjQ5IiwiYXVkIjpbIndhcnJhbnR5IiwiaHR0cHM6Ly9kZXYtanlxdW0xN3IuYXV0aDAuY29tL3VzZXJpbmZvIl0sImlhdCI6MTU4NjIxOTUyNiwiZXhwIjoxNTg2MzA1OTI2LCJhenAiOiJqd081YXRzZHowam4zYktEcDdJcDRqMjJSaFBHN3c5cSIsInNjb3BlIjoib3BlbmlkIHByb2ZpbGUgZW1haWwiLCJwZXJtaXNzaW9ucyI6WyJkZWxldGU6cHJvZHVjdHMiLCJnZXQ6cHJvZHVjdHMiLCJwYXRjaDpwcm9kdWN0cyIsInBvc3Q6cHJvZHVjdHMiXX0.fjAnbFcW4eObYkdynBmzCZA5Jm4el-VV9eM0k53aGmepr2ojlOvhPBsYsVLQI7utR4uxR55RBl0phTxPGMYT1UXcxExSS8FvxN22BaDQemLASaVlMC-U-pHQ5pLzMRHa5NIvojgfdRSzOw8zw7z8cfkNp7C_s4cMeVyWfJrccbsPxcQi8itQehqexU9S4Pc0zvhLozMgkxZMeOjzvDAkaisXJw0jPwsxkl455no_L-oizX8UzOz146S2i_9beiL6P1w3kN-nCJlA8S50moQ6lKC90RpMt5dgUEckH8uPFSHt18iAmcpjK8MDAMi0wloaDCPSUvALWcWxCRUwkDYXiA",
+						"type": "string"
+					}
+				]
+			}
+		}
+	],
+	"auth": {
+		"type": "bearer",
+		"bearer": [
+			{
+				"key": "token",
+				"value": "eyJhbGciOiJSUzI1NiIsInR5cCI6IkpXVCIsImtpZCI6Ik9UTXlPRFUwUkRjeE9EWTBSVFZCTWpOQlJFVXdRVUUxUWtNMk9FUXdSVEV5TWtVeU1EWXhOZyJ9.eyJpc3MiOiJodHRwczovL2Rldi1qeXF1bTE3ci5hdXRoMC5jb20vIiwic3ViIjoiYXV0aDB8NWU4YmJhZWNhMzY2NzgwYzMyOThmMjE1IiwiYXVkIjpbIndhcnJhbnR5IiwiaHR0cHM6Ly9kZXYtanlxdW0xN3IuYXV0aDAuY29tL3VzZXJpbmZvIl0sImlhdCI6MTU4NjIxNTkyNywiZXhwIjoxNTg2MzAyMzI3LCJhenAiOiJqd081YXRzZHowam4zYktEcDdJcDRqMjJSaFBHN3c5cSIsInNjb3BlIjoib3BlbmlkIHByb2ZpbGUgZW1haWwiLCJwZXJtaXNzaW9ucyI6WyJkZWxldGU6aXRlbSIsImRlbGV0ZTpwcm9kdWN0cyIsImdldDppdGVtcyIsImdldDpwcm9kdWN0cyIsInBhdGNoOml0ZW0iLCJwYXRjaDpwcm9kdWN0cyIsInBvc3Q6aXRlbSIsInBvc3Q6cHJvZHVjdHMiXX0.jtQntuzdKOpcfxGdBkG64JvUI5m5xt0LYUro_Av8p8H8xkwoDBsv4iEOXMOnz3Jx1ACyo0izXHWaNalqpucdMAgWl2v3xyUdSnWJ0DFzAXvWE_lQ7UJSAG0bVlKdxiRcLedlv8gdNkB9hzr8bsi9yhsGlWASN4zn1HSds4J963OqK5F1mJ3exlZw1tgdbNsy58zNLjeGl-4CCNj9et8Dnmuv-Z0KgD7dCo1VLG6nKCMF6xu4lZoXl2LCtD623yAhsdCiGxHPrjRG8q7L6MoFq_j4esAJmDXGuYsEuKCNDhoMwAuqOCRAKOXUsusKpUpL580rPc2_35q8tF6fk1iOhg",
+				"type": "string"
+			}
+		]
+	}
+}

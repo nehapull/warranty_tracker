@@ -1,10 +1,12 @@
-# This handles the API endpoints and returns responses for appropriate endpoints
-# We need to use CRUD here
+"""
+This handles the API endpoints and returns responses for appropriate
+endpoints.
+"""
 
 import os
 import requests
-from flask import Flask, request, abort, jsonify, redirect, render_template, session, url_for, make_response
-#from flask.ext.session import Session
+from flask import Flask, request, abort, jsonify, redirect, render_template
+from flask import session, url_for, make_response
 from flask_session.__init__ import Session
 from flask_sqlalchemy import SQLAlchemy
 from flask_bcrypt import Bcrypt
@@ -16,18 +18,19 @@ from models import setup_db, Product, User, Items_for_Sale
 
 ITEMS_PER_PAGE = 10
 
+
 def create_app(test_config=None):
     # create and configure the app
     app = Flask(__name__)
-    setup_db(app) 
+    setup_db(app)
     bcrypt = Bcrypt(app)
 
-    app.secret_key = 'warranty-api' 
+    app.secret_key = 'warranty-api'
     token = None
-    
+
     CORS(app)
 
-    ''' 
+    '''
     Use the after_request decorator to set Access-Control-Allow
     '''
     @app.after_request
@@ -52,11 +55,11 @@ def create_app(test_config=None):
     @app.route('/login')
     def login():
         auth_link = build_login_link()
-        return redirect(auth_link, code=302) 
-    
+        return redirect(auth_link, code=302)
+
     @app.route('/get-token', methods=['POST'])
     def get_token():
-        body = request.get_json() 
+        body = request.get_json()
         user_token = body.get('token')
 
         store_user_session(user_token)
@@ -74,19 +77,17 @@ def create_app(test_config=None):
             token = user_token
         else:
             token = 'Bearer ' + user_token
-        
-        #print("token = ", token)
-        response = requests.get('https://dev-jyqum17r.auth0.com/userinfo', 
-                                 headers={'Authorization': token})
+
+        response = requests.get('https://dev-jyqum17r.auth0.com/userinfo',
+                                headers={'Authorization': token})
         userinfo = response.json()
-        #print("userinfo = ", userinfo)
-        
+
         session['token'] = token
         session['jwt_payload'] = userinfo
         session['email'] = userinfo['email']
         session['name'] = userinfo['name']
 
-        # Check if user exists 
+        # Check if user exists
         user_email = session.get('email')
         user_name = session.get('name')
         user = User.query.filter(User.email == user_email).one_or_none()
@@ -99,36 +100,42 @@ def create_app(test_config=None):
 
     def paginate_products(request, products):
         page = request.args.get('page', 1, type=int)
-        start = (page-1) * ITEMS_PER_PAGE
+
+        if page > len(products):
+            abort(404)
+
+        start = (page - 1) * ITEMS_PER_PAGE
         end = start + ITEMS_PER_PAGE
-        
+
         paginated_products = products[start:end]
 
         return paginated_products
 
-
     def paginate_items(request, items):
         page = request.args.get('page', 1, type=int)
-        start = (page-1) * ITEMS_PER_PAGE
+
+        if page > len(items):
+            abort(404)
+
+        start = (page - 1) * ITEMS_PER_PAGE
         end = start + ITEMS_PER_PAGE
 
         paginated_items = items[start:end]
 
         return paginated_items
 
-    
     @app.route('/logout')
     def logout():
         # Clear session stored data
-        #session.clear()
+        # session.clear()
         [session.pop(key) for key in list(session.keys())]
         # Redirect user to logout endpoint
         return render_template("home.html")
-    
- 
+
     # Check if user exists and if not, create the user
+
     def get_user(request):
-        #print(session.get('profile'))
+        # print(session.get('profile'))
         user_email = session.get('email')
         token = session.get('token')
         if user_email is None or token != request.headers['Authorization']:
@@ -136,8 +143,6 @@ def create_app(test_config=None):
             store_user_session(request.headers['Authorization'])
             user_email = session.get('email')
 
-        #print("user email = ", user_email)
-        #user_name = session.get('name')
         user = User.query.filter(User.email == user_email).one_or_none()
 
         if user is None:
@@ -150,13 +155,12 @@ def create_app(test_config=None):
     def retrieve_products():
         # Get user info
         user = get_user(request)
-        #print("user = ", user.name)
         user_id = user.id
-        
+
         try:
             products = Product.query.filter(Product.user_id == user_id).all()
             formatted_products = [product.format() for product in products]
-            paginated_products = paginate_products(request, formatted_products) 
+            paginated_products = paginate_products(request, formatted_products)
 
             if len(paginated_products) == 0:
                 paginated_products = []
@@ -167,7 +171,7 @@ def create_app(test_config=None):
                 'total_products': len(paginated_products)
             })
 
-        except:
+        except BaseException:
             abort(404)
 
     @app.route('/products', methods=['POST'])
@@ -175,9 +179,8 @@ def create_app(test_config=None):
     def create_product():
         # Create a new product
         # First retrieve the user in session
-        #print("token = ", request.headers['Authorization'])
         user = get_user(request)
-        user_id = user.id 
+        user_id = user.id
 
         body = request.get_json()
         if body is None:
@@ -189,10 +192,13 @@ def create_app(test_config=None):
 
         if not name or not date_purchased or not warranty_end_date:
             abort(422)
-        
+
         try:
-            product = Product(name=name, date_purchased=date_purchased,
-                          warranty_end_date=warranty_end_date, user_id=user_id)
+            product = Product(
+                name=name,
+                date_purchased=date_purchased,
+                warranty_end_date=warranty_end_date,
+                user_id=user_id)
 
             # Insert product into database
             product.insert()
@@ -210,10 +216,9 @@ def create_app(test_config=None):
                 'total_products': len(paginated_products)
             })
 
-        except:
+        except BaseException:
             abort(422)
 
-    
     @app.route('/products/<int:product_id>', methods=['PATCH'])
     @requires_auth('patch:products')
     def update_product(product_id):
@@ -225,15 +230,16 @@ def create_app(test_config=None):
 
         if body is None:
             abort(422)
-            
+
         try:
             updated_name = None
             updated_date_purchased = None
             updated_warranty_end = None
 
             # Find product
-            product = Product.query.filter(Product.id == product_id).one_or_none()
-            
+            product = Product.query.filter(
+                Product.id == product_id).one_or_none()
+
             if product is None:
                 abort(422)
 
@@ -258,7 +264,9 @@ def create_app(test_config=None):
 
             product.update()
 
-            products = Product.query.order_by(Product.id).filter(Product.user_id == user_id).all()
+            products = Product.query.order_by(
+                Product.id).filter(
+                Product.user_id == user_id).all()
             formatted_products = [product.format() for product in products]
             paginated_products = paginate_products(request, formatted_products)
 
@@ -268,9 +276,9 @@ def create_app(test_config=None):
                 'total_products': len(paginated_products)
             })
 
-        except:
+        except BaseException:
             abort(422)
-    
+
     @app.route('/products/<int:product_id>', methods=['DELETE'])
     @requires_auth('delete:products')
     def delete_product(product_id):
@@ -278,16 +286,18 @@ def create_app(test_config=None):
         session.clear()
         user = get_user(request)
         user_id = user.id
-        
-        try: 
-            product = Product.query.filter(Product.user_id==user_id).filter(Product.id==product_id).one_or_none()
+
+        try:
+            product = Product.query.filter(
+                Product.user_id == user_id).filter(
+                Product.id == product_id).one_or_none()
 
             if product is None:
                 abort(404)
 
             product.delete()
 
-            products = Product.query.filter(Product.user_id==user_id).all()
+            products = Product.query.filter(Product.user_id == user_id).all()
             formatted_products = [product.format() for product in products]
             paginated_products = paginate_products(request, formatted_products)
 
@@ -297,18 +307,18 @@ def create_app(test_config=None):
                 'total_products': len(paginated_products)
             })
 
-        except:
+        except BaseException:
             abort(404)
 
     # NOTE: we can try to assign seller role based on domain name
-    # requires auth role: 'seller'
+    # Requires auth role: 'seller'
     @app.route('/items', methods=['POST'])
     @requires_auth('post:item')
     def create_item():
         # Retrieve user
         user = get_user(request)
         user_id = user.id
-        
+
         body = request.get_json()
         if body is None:
             abort(422)
@@ -320,14 +330,18 @@ def create_app(test_config=None):
 
         # Post a new item to sell
         try:
-            item = Items_for_Sale(name=name, warranty_period=warranty_period,
-                                 item_description=item_description, image_link=image_link,
-                                 user_id=user_id) 
+            item = Items_for_Sale(
+                name=name,
+                warranty_period=warranty_period,
+                item_description=item_description,
+                image_link=image_link,
+                user_id=user_id)
 
             item.insert()
-            
-            items = Items_for_Sale.query.filter(Items_for_Sale.user_id==user_id).all()
-            formatted_items = [item.format() for item in items] 
+
+            items = Items_for_Sale.query.filter(
+                Items_for_Sale.user_id == user_id).all()
+            formatted_items = [item.format() for item in items]
             paginated_items = paginate_items(request, formatted_items)
 
             return jsonify({
@@ -336,9 +350,9 @@ def create_app(test_config=None):
                 'total_items': len(paginated_items)
             })
 
-        except:
+        except BaseException:
             abort(422)
-    
+
     @app.route('/items', methods=['GET'])
     @requires_auth('get:items')
     def retrieve_items():
@@ -348,8 +362,10 @@ def create_app(test_config=None):
 
         # Retrieve items being sold by seller
         try:
-            items = Items_for_Sale.query.order_by(Items_for_Sale.id).filter(Items_for_Sale.user_id==user_id).all()
-            
+            items = Items_for_Sale.query.order_by(
+                Items_for_Sale.id).filter(
+                Items_for_Sale.user_id == user_id).all()
+
             formatted_items = [item.format() for item in items]
             paginated_items = paginate_items(request, formatted_items)
 
@@ -362,7 +378,7 @@ def create_app(test_config=None):
                 'total_items': len(paginated_items)
             })
 
-        except:
+        except BaseException:
             abort(404)
 
     @app.route('/items/<int:item_id>', methods=['DELETE'])
@@ -371,18 +387,20 @@ def create_app(test_config=None):
         # Retrieve user
         user = get_user(request)
         user_id = user.id
-        #print("user id = ", user_id)
 
         try:
-            item = Items_for_Sale.query.filter(Items_for_Sale.user_id==user_id).filter(Items_for_Sale.id==item_id).one_or_none()
+            item = Items_for_Sale.query.filter(
+                Items_for_Sale.user_id == user_id).filter(
+                Items_for_Sale.id == item_id).one_or_none()
 
             if item is None:
-                #print("in here")
                 abort(404)
-            
+
             item.delete()
 
-            items = Items_for_Sale.query.order_by(Items_for_Sale.id).filter(Items_for_Sale.user_id==user_id).all() 
+            items = Items_for_Sale.query.order_by(
+                Items_for_Sale.id).filter(
+                Items_for_Sale.user_id == user_id).all()
             formatted_items = [item.format() for item in items]
             paginated_items = paginate_items(request, formatted_items)
 
@@ -392,7 +410,7 @@ def create_app(test_config=None):
                 'total_items': len(paginated_items)
             })
 
-        except:
+        except BaseException:
             abort(404)
 
     @app.errorhandler(404)
@@ -401,7 +419,7 @@ def create_app(test_config=None):
             'success': False,
             'error': 404,
             'message': 'request not found'
-        }), 404 
+        }), 404
 
     @app.errorhandler(422)
     def unprocessable(error):
@@ -409,7 +427,7 @@ def create_app(test_config=None):
             'success': False,
             'error': 422,
             'message': 'cannot process request'
-        }), 422 
+        }), 422
 
     @app.errorhandler(400)
     def bad_request(error):
@@ -417,7 +435,7 @@ def create_app(test_config=None):
             'success': False,
             'error': 400,
             'message': 'bad request, try again'
-        }), 400 
+        }), 400
 
     @app.errorhandler(500)
     def server_error(error):
@@ -425,7 +443,7 @@ def create_app(test_config=None):
             'success': False,
             'error': 500,
             'message': 'internal server error'
-        }), 500 
+        }), 500
 
     @app.errorhandler(AuthError)
     def authorization_error(error):
@@ -436,6 +454,7 @@ def create_app(test_config=None):
         }), 403
 
     return app
+
 
 app = create_app()
 

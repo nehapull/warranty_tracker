@@ -2,19 +2,23 @@ import os
 import unittest
 import json
 from flask_sqlalchemy import SQLAlchemy
-
+from dotenv import load_dotenv
+load_dotenv()
 from app import create_app
 from models import setup_db, Product, User, Items_for_Sale
 
 ITEMS_PER_PAGE = 10
 
+auth_header_for_user_token = os.environ.get('auth_header_for_user_token')
 
 auth_header_for_user_role = {
-    'Authorization': 'Bearer eyJhbGciOiJSUzI1NiIsInR5cCI6IkpXVCIsImtpZCI6Ik9UTXlPRFUwUkRjeE9EWTBSVFZCTWpOQlJFVXdRVUUxUWtNMk9FUXdSVEV5TWtVeU1EWXhOZyJ9.eyJpc3MiOiJodHRwczovL2Rldi1qeXF1bTE3ci5hdXRoMC5jb20vIiwic3ViIjoiYXV0aDB8NWU4OTQ4YWI2NTk1MTEwYzEwY2NlNmM1IiwiYXVkIjpbIndhcnJhbnR5IiwiaHR0cHM6Ly9kZXYtanlxdW0xN3IuYXV0aDAuY29tL3VzZXJpbmZvIl0sImlhdCI6MTU4NjE2MTU0OCwiZXhwIjoxNTg2MjQ3OTQ4LCJhenAiOiJqd081YXRzZHowam4zYktEcDdJcDRqMjJSaFBHN3c5cSIsInNjb3BlIjoib3BlbmlkIHByb2ZpbGUgZW1haWwiLCJwZXJtaXNzaW9ucyI6WyJkZWxldGU6cHJvZHVjdHMiLCJnZXQ6cHJvZHVjdHMiLCJwYXRjaDpwcm9kdWN0cyIsInBvc3Q6cHJvZHVjdHMiXX0.lLmjri_xUJaPhBXI6UrbX4NIKpVRy6Wpb1eS_86DU89sSPzUI8NQrXeaUxZD5gIwAXocVHKAL5yMdeVoIVh02kbcPd9AYLg5YOGND2jyXKnPab5EYcCsJg0LLXi3Q2V4NXXlFp6bIQHviadPDqbZlk5u8cospeBhFMoXJY-SCG5vpqxMZkMuCe5KGs6Su6I0_WQosTFL9vq8QwmWfeRDvC_MYXnUysUFcKfXgFUMrRuFzBGfDGQkETzFVbC0k0_z1Ay1Skd_Z-AUIUwCkBo4SNTOfVMlb7PIjWJ1qsKt8eLx41zeH2ajTPpXzfpj2vf-sZJdbi9prlnRkZtd1LL9tQ'
+    'Authorization': auth_header_for_user_token
 }
 
+auth_header_for_seller_token = os.environ.get('auth_header_for_seller_token')
+
 auth_header_for_seller_role = {
-    'Authorization': 'Bearer eyJhbGciOiJSUzI1NiIsInR5cCI6IkpXVCIsImtpZCI6Ik9UTXlPRFUwUkRjeE9EWTBSVFZCTWpOQlJFVXdRVUUxUWtNMk9FUXdSVEV5TWtVeU1EWXhOZyJ9.eyJpc3MiOiJodHRwczovL2Rldi1qeXF1bTE3ci5hdXRoMC5jb20vIiwic3ViIjoiYXV0aDB8NWU3ZTU3Y2Q4N2VjN2IwYzgzOTcxNmVjIiwiYXVkIjpbIndhcnJhbnR5IiwiaHR0cHM6Ly9kZXYtanlxdW0xN3IuYXV0aDAuY29tL3VzZXJpbmZvIl0sImlhdCI6MTU4NjE2NjY2MSwiZXhwIjoxNTg2MjUzMDYxLCJhenAiOiJqd081YXRzZHowam4zYktEcDdJcDRqMjJSaFBHN3c5cSIsInNjb3BlIjoib3BlbmlkIHByb2ZpbGUgZW1haWwiLCJwZXJtaXNzaW9ucyI6WyJkZWxldGU6aXRlbSIsImdldDppdGVtcyIsInBhdGNoOml0ZW0iLCJwb3N0Oml0ZW0iXX0.N5P-mwbBgqPfj23fIMmEf4g9Cc3s1B__tpGHBScvzxG8thEs9JIY0qyO-3xQWcJXDhzE0n-F5AoFl1nP62d1QVBMYVOsn6lSoLCM5D4SYHecYEqv_Ke7W7eOUIDhsmB4t_hgwz6fW1jQkjEuhd3gI04kUTYXec0MWRebGD6gwxfP8rJfSg3qWPQjqEXQZUwDAjtJ-oP_jHJCcBgmov0Besi4jaL-2VhG5ugx_b_JBYdPj28x_BotAF-mPilqkmR2IidnF3yUjV7SATe_hKvjAunn9xtyrnF2WHXi52gCpdONRO-xvsvDBViRjV2IlSwiOlzVgDKdMq06StIUl9xAhw'
+    'Authorization': auth_header_for_seller_token
 }
 
 
@@ -246,7 +250,7 @@ class WarrantyTestCase(unittest.TestCase):
         """Test updating a product but as a seller role"""
 
         res = self.client().patch(
-            '/products/2', json={
+            '/products/1', json={
                 'name': 'Macbook Pro'},
                 headers=auth_header_for_seller_role)
 
@@ -259,7 +263,7 @@ class WarrantyTestCase(unittest.TestCase):
         """Test deleting a product but as a seller role"""
 
         res = self.client().delete(
-            '/products/2', headers=auth_header_for_seller_role)
+            '/products/1', headers=auth_header_for_seller_role)
 
         data = json.loads(res.data)
         self.assertEqual(res.status_code, 403)

@@ -5,7 +5,8 @@ from os import environ as env
 from werkzeug.exceptions import HTTPException
 
 from dotenv import load_dotenv, find_dotenv
-from flask import Flask, jsonify, redirect, render_template, url_for, request, _request_ctx_stack, abort
+from flask import Flask, jsonify, redirect, render_template, url_for, request
+from flask import _request_ctx_stack, abort
 from six.moves.urllib.parse import urlencode
 from jose import jwt
 from urllib.request import urlopen
@@ -19,6 +20,7 @@ API_AUDIENCE = os.environ.get('API_AUDIENCE')
 CLIENT_ID = os.environ.get('CLIENT_ID')
 REDIRECT_URI = os.environ.get('REDIRECT_URI')
 
+
 def build_login_link():
     link = "https://"
     link += AUTH0_DOMAIN + "/authorize?audience="
@@ -30,38 +32,18 @@ def build_login_link():
     return link
 
 
-"""
-def setup_auth(app):
-    oauth = OAuth(app)
-    app.secret_key = 'hello'
-
-    auth0 = oauth.register(
-    'auth0',
-    client_id='jwO5atsdz0jn3bKDp7Ip4j22RhPG7w9q',
-    client_secret='oExvWpyMKezbp1a5PVX00GEXBVVmtpGmY-aOkjKmMXZeIK9CuSq5EmfvubKq2-LY',
-    api_base_url='https://dev-jyqum17r.auth0.com',
-    access_token_url='https://dev-jyqum17r.auth0.com/oauth/token',
-    authorize_url='https://dev-jyqum17r.auth0.com/authorize',
-    #response_type="token"
-    audience='warranty',
-    client_kwargs={
-        'scope': 'openid profile email',
-         },
-    )
-    
-    return auth0
-"""
-
-
 # AuthError Exception
 '''
 AuthError Exception
 A standardized way to communicate auth failure modes
 '''
+
+
 class AuthError(Exception):
     def __init__(self, error, status_code):
         self.error = error
         self.status_code = status_code
+
 
 def get_token_auth_header():
     # Get header from request
@@ -98,6 +80,7 @@ def get_token_auth_header():
 
     return token
 
+
 def check_permissions(permission, payload):
     # Check if permission is in payload
     if 'permissions' not in payload:
@@ -113,6 +96,7 @@ def check_permissions(permission, payload):
         }, 401)
 
     return True
+
 
 def verify_decode_jwt(token):
     # Check for key id (kid)
@@ -172,6 +156,7 @@ def verify_decode_jwt(token):
         'code': 'invalid_header',
                 'description': 'Unable to find the appropriate key.'
     }, 400)
+
 
 def requires_auth(permission=''):
     def requires_auth_decorator(f):
