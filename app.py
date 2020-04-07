@@ -159,7 +159,7 @@ def create_app(test_config=None):
             paginated_products = paginate_products(request, formatted_products) 
 
             if len(paginated_products) == 0:
-                abort(404)
+                paginated_products = []
 
             return jsonify({
                 'success': True,
@@ -354,7 +354,7 @@ def create_app(test_config=None):
             paginated_items = paginate_items(request, formatted_items)
 
             if len(paginated_items) == 0:
-                abort(404)
+                paginated_items = []
 
             return jsonify({
                 'success': True,
@@ -439,5 +439,5 @@ def create_app(test_config=None):
 
 app = create_app()
 
-#if __name__ == '__main__':
-#    APP.run(host='0.0.0.0', port=8080, debug=True)
+if __name__ == '__main__':
+    app.run()

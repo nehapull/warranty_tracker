@@ -4,10 +4,13 @@ from flask_sqlalchemy import SQLAlchemy
 from flask_migrate import Migrate
 from flask_bcrypt import Bcrypt
 import json
+from dotenv import load_dotenv
+
+load_dotenv()
 
 database_name = "warranty"
 #database_path = "postgres://{}/{}".format('localhost:5432', database_name)
-database_path = "postgres://cmbkmauwpoyubc:ab350bd16641cd694ad7a0599ac3e00b4480ea3c881ca1c539d3c4417571665c@ec2-34-197-212-240.compute-1.amazonaws.com:5432/d47sd0jradd25t"
+database_path = os.environ.get('database_uri')
 
 db = SQLAlchemy()
 bcrypt = Bcrypt()
