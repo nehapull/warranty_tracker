@@ -24,7 +24,7 @@ py==1.8.1
 pyasn1==0.4.8
 pycparser==2.19
 pycryptodome==3.3.1
-PyJWT==1.7.1
+PyJWT==2.4.0
 pyparsing==2.4.6
 pytest==5.4.1
 python-dateutil==2.6.0
